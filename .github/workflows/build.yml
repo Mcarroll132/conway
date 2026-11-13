@@ -1,0 +1,29 @@
+name: Build
+
+# Run the build on every push (any branch), on pull requests,
+# and manually from the Actions tab
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clone the repo
+        uses: actions/checkout@v7
+
+      - name: Update system, install tools and build
+        run: bash build.sh
+
+      - name: Run the program (smoke test)
+        run: ./dist/conway
+
+      - name: Upload the executable
+        uses: actions/upload-artifact@v7
+        with:
+          name: conway-linux-x64
+          path: dist/conway
+          if-no-files-found: error

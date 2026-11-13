@@ -1,0 +1,2 @@
+# Shell scripts must keep Linux line endings or bash on the runner breaks
+*.sh text eol=lf
